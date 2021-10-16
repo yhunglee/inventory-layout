@@ -41,6 +41,55 @@ nav a {
   padding: 0.3rem;
 }
 
+/* switch - slider -- start */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  border-radius: 34px;
+  position: absolute;
+  cursor: pointer;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+.slider::before {
+  border-radius: 50%;
+  position: absolute;
+  content: "";
+  width: 26px;
+  height: 26px;
+  background-color: #fff;
+  left: 4px;
+  bottom: 4px;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+.switch input[type="checkbox"]:checked + .slider {
+  background-color: rgb(0, 180, 95);
+}
+.switch input[type="checkbox"]:focus + .slider {
+  box-shadow: 0 0 1px rgb(0, 180, 95);
+}
+.switch input[type="checkbox"]:checked + .slider::before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+/* switch - slider -- end */
+
 .table {
   height: 500px;
 }
@@ -51,8 +100,15 @@ nav a {
   color: #000;
   display: grid;
   grid-template-columns: 5% 10% 24% repeat(3, 7%) 25% 15%;
+  place-content: stretch;
 }
 
 .column-name .td {
   padding: 2rem 0;
 }
+
+/* .tr {
+  display: grid;
+  grid-template-columns: 5% 10% 24% repeat(3, 7%) 25% 15%;
+  place-content: stretch;
+} */
