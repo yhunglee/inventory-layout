@@ -107,8 +107,8 @@ nav a {
   padding: 2rem 0;
 }
 
-/* .tr {
+.tr {
   display: grid;
   grid-template-columns: 5% 10% 24% repeat(3, 7%) 25% 15%;
   place-content: stretch;
-} */
+}
