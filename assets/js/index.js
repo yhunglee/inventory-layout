@@ -204,9 +204,14 @@ fetch('assets/files/titles.json')
           rowNode.appendChild(class2Node);
 
           
+          // sub-record-container. This is for class-3 nodes
+          let subRecordContainer = document.createElement('div');
+          subRecordContainer.classList.add('sub-record-container');
 
           // create 9 td tag of class-3 and related nodes --- start
           season['episodes'].forEach((episode) => {
+
+            
 
             // class-3
             let class3Node = document.createElement('div');
@@ -247,10 +252,13 @@ fetch('assets/files/titles.json')
             class3Node.appendChild(td7UnderClass3);
             class3Node.appendChild(td8UnderClass3);
 
-            rowNode.appendChild(class3Node);
+            subRecordContainer.appendChild(class3Node);
+            
             
           }); 
           
+          // let subRecordContainer to be attached to rowNode
+          rowNode.appendChild(subRecordContainer);
 
           // create 9 td tag of class-3 and related nodes --- end
 

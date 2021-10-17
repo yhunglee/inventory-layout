@@ -206,7 +206,8 @@ input[type="checkbox"]:checked
   + .class-1
   ~ input[type="checkbox"]:checked
   + .class-2
-  ~ .class-3 {
+  + .sub-record-container
+  > .class-3 {
   /* Two conditions for setting rows to grid:
   * 1. Only expand series-layer so open series rows
   * 2. Under situation of expanded rows of series-layer, a season is selected to expand its all episodes. In this action for opposite, the browser will collapse all seasons and episodes if series is extend to collapse.
