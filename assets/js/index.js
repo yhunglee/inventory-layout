@@ -186,7 +186,7 @@ fetch('assets/files/titles.json')
           let td8UnderClass2 = createTDAndSwitcherNode('div', ['td']);
 
 
-          // let nodes under class2 be chained.
+          // let nodes under class-2 be chained.
 
           if (checkboxForClass2 != '') {
             rowNode.appendChild(checkboxForClass2);
@@ -204,17 +204,66 @@ fetch('assets/files/titles.json')
           rowNode.appendChild(class2Node);
 
           
+
+          // create 9 td tag of class-3 and related nodes --- start
+          season['episodes'].forEach((episode) => {
+
+            // class-3
+            let class3Node = document.createElement('div');
+            class3Node.classList.add('class-3', 'tr');
+
+            // empty column
+            let td1UnderClass3 = createNormalTdNode('div', ['td'], '');
+
+            // ID
+            let td2UnderClass3 = createNormalTdNode('div', ['td'], episode['episode_id']);
+            
+            // Title name
+            let td3UnderClass3 = createNormalTdNode('div', ['td'], episode['episode_name']);
+
+            // Type
+            let td4UnderClass3 = createNormalTdNode('div', ['td'], 'Episode');
+
+            // Season
+            let td5UnderClass3 = createNormalTdNode('div', ['td'], `--`);
+
+            // Episode
+            let td6UnderClass3 = createNormalTdNode('div', ['td'], `EP${episode['episode_number']}`);
+
+            // Published
+            let td7UnderClass3 = createNormalTdNode('div', ['td'], `--`);
+
+            // Programmable
+            let td8UnderClass3 = createTDAndSwitcherNode('div', ['td']);
+
+            // let nodes under class-3 be chained
+
+            class3Node.appendChild(td1UnderClass3);
+            class3Node.appendChild(td2UnderClass3);
+            class3Node.appendChild(td3UnderClass3);
+            class3Node.appendChild(td4UnderClass3);
+            class3Node.appendChild(td5UnderClass3);
+            class3Node.appendChild(td6UnderClass3);
+            class3Node.appendChild(td7UnderClass3);
+            class3Node.appendChild(td8UnderClass3);
+
+            rowNode.appendChild(class3Node);
+            
+          }); 
+          
+
+          // create 9 td tag of class-3 and related nodes --- end
+
         });
         
       }
 
       // create 9 td tag of class-2 and related nodes --- end
 
-      // TODO: create 9 td tag of class-3 and related nodes
-
-      // TODO: let nodes and text can be chained.
       
 
+      // let nodes and text can be chained.
+      
       tableNode.appendChild(rowNode);
     })
 
