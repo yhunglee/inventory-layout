@@ -204,7 +204,7 @@ input[type="checkbox"]:checked + .class-2 > .td:nth-child(2) label::before {
 input[type="checkbox"]:checked + .class-1 ~ .class-2,
 input[type="checkbox"]:checked
   + .class-1
-  + input[type="checkbox"]:checked
+  ~ input[type="checkbox"]:checked
   + .class-2
   ~ .class-3 {
   /* Two conditions for setting rows to grid:
