@@ -111,4 +111,107 @@ nav a {
   display: grid;
   grid-template-columns: 5% 10% 24% repeat(3, 7%) 25% 15%;
   place-content: stretch;
+  border: 1px #ccc solid;
+  border-top: none;
+  padding: 5px 0;
+  align-items: center;
 }
+
+/* Movie styling for it has multiple seasons --- start */
+.class-1 > .td:nth-child(1) {
+  position: relative;
+  text-align: center;
+}
+.class-1 > .td:nth-child(1) label:hover {
+  cursor: pointer;
+}
+.class-1 > .td:nth-child(1) input[type="checkbox"] {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+input[type="checkbox"] {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  display: none;
+}
+input[type="checkbox"] ~ .class-1 > .td:nth-child(1) label::before {
+  /* use arrow-right-icon in font awesome 5 for expansion extent */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 700;
+  font-size: 30px;
+  content: "\f0da";
+}
+input[type="checkbox"]:checked ~ .class-1 > .td:nth-child(1) label::before {
+  /* use arrow-down-icon in font awesome 5 for collapse extent */
+  content: "\f0d7";
+}
+/* Movie styling for it has multiple seasons --- end */
+
+/* Season styling --- start */
+.class-2 {
+  display: none;
+  /* let it show as debuging */
+  /* display: grid; */
+}
+.class-2 > .td:nth-child(2) {
+  position: relative;
+  text-align: center;
+}
+.class-2 > .td:nth-child(2) label:hover {
+  cursor: pointer;
+}
+.class-2 > .td:nth-child(3) {
+  /* title name of seasons shift  */
+  position: relative;
+  left: 20px;
+}
+
+input[type="checkbox"] + .class-2 > .td:nth-child(2) label::before {
+  /* use minus-icon in font awesome 5 for collapse extent */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 700;
+  font-size: 20px;
+  content: "\f0fe";
+}
+input[type="checkbox"]:checked + .class-2 > .td:nth-child(2) label::before {
+  /* use plus-icon in font awesome 5 for expansion extent */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 700;
+  font-size: 20px;
+  content: "\f146";
+}
+/* Season styling --- end */
+
+/* Episode styling --- start */
+.class-3 {
+  display: none;
+  /* let it show as debuging */
+  /* display: grid; */
+}
+.class-3 > .td:nth-child(2) {
+  position: relative;
+
+  text-align: right;
+}
+.class-3 > .td:nth-child(3) {
+  text-align: center;
+}
+/* Episode styling --- end */
+
+/* Styling of Expand or Collapse for Series, season and episodes --- start */
+input[type="checkbox"]:checked + .class-1 ~ .class-2,
+input[type="checkbox"]:checked
+  + .class-1
+  + input[type="checkbox"]:checked
+  + .class-2
+  ~ .class-3 {
+  /* Two conditions for setting rows to grid:
+  * 1. Only expand series-layer so open series rows
+  * 2. Under situation of expanded rows of series-layer, a season is selected to expand its all episodes. In this action for opposite, the browser will collapse all seasons and episodes if series is extend to collapse.
+  */
+  display: grid;
+}
+
+/* Styling of Expand or Collapse for Series, season and episodes --- end */
