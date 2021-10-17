@@ -22,6 +22,22 @@ let createTDAndLabelForClass1Node = (tagName, listOfClassNameForTag, attrNameFor
 
 }
 
+let createTDAndLabelForClass2Node = (tagName, listOfClassNameForTag, attrNameForLabel, valOfAttrNameForLabel, valTextForTag) => {
+
+  let tdNode = document.createElement(tagName);
+  tdNode.classList.add(...listOfClassNameForTag);
+
+  let labelNode = document.createElement('label');
+  labelNode.setAttribute(attrNameForLabel, valOfAttrNameForLabel);
+
+  tdNode.appendChild(labelNode);
+
+  let textNode = document.createTextNode(valTextForTag);
+  tdNode.appendChild(textNode);
+  
+  return tdNode;
+}
+
 let createTDAndSwitcherNode = (tagName, listOfClassNameForTag) => {
   let tdNode = document.createElement(tagName);
   tdNode.classList.add(...listOfClassNameForTag);
@@ -99,20 +115,13 @@ fetch('assets/files/titles.json')
       let td6UnderClass1 = createNormalTdNode('div', ['td'], (elem['content_type'] !== 'Movie' && elem['episode_count'] > 1) ? elem['episode_count'] : '-');
 
       // Published
-      let formatedTime = Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit',  }).format(elem['publish_timestamp']);
+      let formatedTime = Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'  }).format(elem['publish_timestamp']);
       let td7UnderClass1 = createNormalTdNode('div', ['td'], (elem['content_type'] === 'Movie') ? formatedTime : '-');
 
       // Programmable
       let td8UnderClass1 = createTDAndSwitcherNode('div', ['td']);
 
 
-      // create 9 td tag and append to class-1 node --- end
-
-      // TODO: create 9 td tag of class-2 and related nodes
-
-      // TODO: create 9 td tag of class-3 and related nodes
-
-      // TODO: let nodes and text can be chained.
       if (checkboxForClass1 != '') {
         rowNode.appendChild(checkboxForClass1
           );
@@ -130,6 +139,81 @@ fetch('assets/files/titles.json')
       
 
       rowNode.appendChild(class1Node);
+
+      // create 9 td tag and append to class-1 node --- end
+
+      // create 9 td tag of class-2 and related nodes --- start
+      
+      if (elem['seasons'].length > 0) {
+
+        // for class-2 with episodes
+        elem['seasons'].forEach((season, idxSeason) => {
+
+          // checkboxForClass2
+          let checkboxForClass2 = '';
+
+          checkboxForClass2 = document.createElement('input');
+          checkboxForClass2.setAttribute('type', 'checkbox');
+          checkboxForClass2.setAttribute('id', `movie-${idx}-season-${idxSeason}`);
+
+          // class-2
+          let class2Node = document.createElement('div');
+          class2Node.classList.add('class-2', 'tr');
+
+          // empty column
+          let td1UnderClass2 = createNormalTdNode('div', ['td'], '');
+
+          // ID and arrow
+          let td2UnderClass2 = createTDAndLabelForClass2Node('div', ['td'], 'for', `movie-${idx}-season-${idxSeason}`, season['season_id']);
+
+          // Title name
+          let td3UnderClass2 = createNormalTdNode('div', ['td'], season['season_name']);
+
+          // Type
+          let td4UnderClass2 = createNormalTdNode('div', ['td'], 'Season');
+
+          // Season
+          let td5UnderClass2 = createNormalTdNode('div', ['td'], season['season_number']);
+
+          // Episode
+          let td6UnderClass2 = createNormalTdNode('div', ['td'], season['episode_count']);
+
+          // Published
+          let formatedTimeForSeason = Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(elem['publish_timestamp']);
+          let td7UnderClass2 = createNormalTdNode('div', ['td'], formatedTimeForSeason);
+
+          // Programmable and switch
+          let td8UnderClass2 = createTDAndSwitcherNode('div', ['td']);
+
+
+          // let nodes under class2 be chained.
+
+          if (checkboxForClass2 != '') {
+            rowNode.appendChild(checkboxForClass2);
+          }
+
+          class2Node.appendChild(td1UnderClass2);
+          class2Node.appendChild(td2UnderClass2);
+          class2Node.appendChild(td3UnderClass2);
+          class2Node.appendChild(td4UnderClass2);
+          class2Node.appendChild(td5UnderClass2);
+          class2Node.appendChild(td6UnderClass2);
+          class2Node.appendChild(td7UnderClass2);
+          class2Node.appendChild(td8UnderClass2);
+
+          rowNode.appendChild(class2Node);
+
+          
+        });
+        
+      }
+
+      // create 9 td tag of class-2 and related nodes --- end
+
+      // TODO: create 9 td tag of class-3 and related nodes
+
+      // TODO: let nodes and text can be chained.
+      
 
       tableNode.appendChild(rowNode);
     })
