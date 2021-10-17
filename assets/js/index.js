@@ -173,7 +173,7 @@ fetch('assets/files/titles.json')
           let td4UnderClass2 = createNormalTdNode('div', ['td'], 'Season');
 
           // Season
-          let td5UnderClass2 = createNormalTdNode('div', ['td'], season['season_number']);
+          let td5UnderClass2 = createNormalTdNode('div', ['td'], `S${season['season_number']}`);
 
           // Episode
           let td6UnderClass2 = createNormalTdNode('div', ['td'], season['episode_count']);
