@@ -62,12 +62,10 @@ fetch('assets/files/titles.json')
   .then(resp => resp.json())
   .then(json => {
 
-    console.log(json); // debug
 
     let data = json;
-    // TODO: load data to DOM
+    // load data to DOM
     let [tableNode,] = document.getElementsByClassName('table');
-    // console.log(tableNode); // debug
 
     data.forEach((elem, idx) => {
 
