@@ -57,6 +57,76 @@ let createTDAndSwitcherNode = (tagName, listOfClassNameForTag) => {
   return tdNode;
 }
 
+let search = (keyword, content) => {
+  let result = [];
+
+  let regKeyword = new RegExp(keyword, 'i');
+
+  for (const elem of content) {
+
+    if (elem['title_name'].match(regKeyword)) {
+      /**
+       * for a matched content record
+       */
+      result.push(elem);
+    } else {
+
+      if (elem['seasons'].length > 0) {
+
+        let seasonMatchedCollection = [];
+        let tmpSeasons = Array.from(elem['seasons']);
+        for (const season of tmpSeasons) {
+
+          if (season['season_name'].match(regKeyword)) {
+
+            /**
+             * for matched season titles
+             */
+             seasonMatchedCollection.push(season)
+              ;
+          } else {
+
+            let episodeMatchedCollection = [];
+            let tmpEpisodes = Array.from(season['episodes']);
+
+            for (const episode of tmpEpisodes) {
+              if (episode['episode_name'].match(regKeyword)) {
+
+                /**
+                 * for matched episode titles
+                 */
+                episodeMatchedCollection.push(episode);
+
+
+              }
+            }
+
+            /**
+             * put back regenerated episodes into a season
+             */
+            if (episodeMatchedCollection.length > 0) {
+              season['episodes'] = Array.from(episodeMatchedCollection);
+              seasonMatchedCollection.push(season);
+            }
+          }
+        }
+
+        /**
+         * put back regenerated seasons into a content record
+         */
+        if (seasonMatchedCollection.length > 0) {
+          elem['seasons'] = Array.from(seasonMatchedCollection);
+          result.push(elem);
+        }
+        
+      }
+    }
+  }
+
+  return result;
+}
+
+let rawData;
 
 fetch('assets/files/titles.json')
   .then(resp => resp.json())
@@ -64,6 +134,8 @@ fetch('assets/files/titles.json')
 
 
     let data = json;
+    rawData = Array.from(json);
+
     // load data to DOM
     let [tableNode,] = document.getElementsByClassName('table');
 
@@ -274,3 +346,24 @@ fetch('assets/files/titles.json')
     })
 
   });
+
+
+
+
+
+rxjs.fromEvent(document.getElementById('search'), 'input').pipe(
+  rxjs.operators.map(event => event.target.value),
+  rxjs.operators.debounceTime(500),
+  rxjs.operators.distinctUntilChanged(),
+  rxjs.operators.map(keyword => search(keyword, rawData)),
+  
+).subscribe((founded) => {
+
+  /**
+   * TODO: 
+   * 1. clean data on table at DOM 
+   * 2. add found data to DOM
+   */
+  console.log(`founded: ${JSON.stringify(founded)}`); // debug
+
+})
