@@ -91,7 +91,9 @@ nav a {
 /* switch - slider -- end */
 
 .table {
-  height: 500px;
+  height: 550px;
+  position: relative;
+  overflow: scroll;
 }
 
 .table .column-name {
@@ -101,6 +103,10 @@ nav a {
   display: grid;
   grid-template-columns: 5% 10% 24% repeat(3, 7%) 25% 15%;
   place-content: stretch;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 
 .column-name .td {
